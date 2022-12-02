@@ -64,3 +64,4 @@ app.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${port} 🚀`);
 });
+exports.default = app;
