@@ -1,0 +1,10 @@
+doctype html
+html(lang='en')
+  head
+    title Submit a link to be shortened
+  body
+    h1 Jade - node template engine
+    form(method='post' action='/makelink')
+      label(for='url')
+        input#url(type='text' name='inputURL')
+      button(type='submit') Get me my link!
