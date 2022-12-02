@@ -21,14 +21,14 @@ export const getLinkFromShortURL = async (shortURL: String) => {
 };
 
 export const addLinkToDB = async (url: String) => {
-  // TODO: Check it's a valid URL.
   const client = await pool.connect();
   try {
     const shortURL = nanoid(Number(process.env.SHORTLENGTH));
     const res = await client.query(
-      `INSERT INTO "links" ("short", "fullURL") VALUES ($1, $2)`,
+      `INSERT INTO "links" ("short", "fulllink") VALUES ($1, $2) RETURNING "short"`,
       [shortURL, url]
     );
+    console.log(res);
     return res.rows[0];
   } catch (err) {
     console.log(err);

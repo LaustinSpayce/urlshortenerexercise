@@ -29,11 +29,11 @@ const getLinkFromShortURL = (shortURL) => __awaiter(void 0, void 0, void 0, func
 });
 exports.getLinkFromShortURL = getLinkFromShortURL;
 const addLinkToDB = (url) => __awaiter(void 0, void 0, void 0, function* () {
-    // TODO: Check it's a valid URL.
     const client = yield pool.connect();
     try {
         const shortURL = (0, nanoid_1.nanoid)(Number(process.env.SHORTLENGTH));
-        const res = yield client.query(`INSERT INTO "links" ("short", "fullURL") VALUES ($1, $2)`, [shortURL, url]);
+        const res = yield client.query(`INSERT INTO "links" ("short", "fulllink") VALUES ($1, $2) RETURNING "short"`, [shortURL, url]);
+        console.log(res);
         return res.rows[0];
     }
     catch (err) {

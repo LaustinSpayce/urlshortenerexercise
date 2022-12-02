@@ -28,10 +28,17 @@ app.get("/", (req, res) => {
     res.render("form");
 });
 // Accept POST from form to make a link
-app.post("/makelink", (req, res) => {
-    res.send("Received post request to makelink with information: " +
-        JSON.stringify(req.body));
-});
+app.post("/makelink", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // TODO: Check it's a valid URL.
+    const inputURL = req.body.inputURL;
+    const result = yield (0, queries_1.addLinkToDB)(inputURL);
+    const protocol = req.protocol;
+    const host = req.hostname;
+    const port = process.env.PORT ? `:${process.env.PORT}` : ``;
+    const fullUrl = `${protocol}://${host}${port}/${result.short}`;
+    result.fullUrl = fullUrl;
+    res.render("output", result);
+}));
 // specific for error
 app.get("/error", (req, res) => {
     res.send("oh no there has been an error");

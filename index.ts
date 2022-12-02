@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
-import { getLinkFromShortURL } from "./queries";
+import { addLinkToDB, getLinkFromShortURL } from "./queries";
 
 dotenv.config();
 
@@ -20,11 +20,18 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Accept POST from form to make a link
-app.post("/makelink", (req: Request, res: Response) => {
-  res.send(
-    "Received post request to makelink with information: " +
-      JSON.stringify(req.body)
-  );
+app.post("/makelink", async (req: Request, res: Response) => {
+  // TODO: Check it's a valid URL.
+  const inputURL = req.body.inputURL;
+  const result = await addLinkToDB(inputURL);
+
+  const protocol = req.protocol;
+  const host = req.hostname;
+  const port = process.env.PORT ? `:${process.env.PORT}` : ``;
+
+  const fullUrl = `${protocol}://${host}${port}/${result.short}`;
+  result.fullUrl = fullUrl;
+  res.render("output", result);
 });
 
 // specific for error
