@@ -23,16 +23,20 @@ app.set("view engine", "pug");
 app.set("views", path_1.default.join(__dirname, "views"));
 app.use(express_1.default.urlencoded());
 app.use(express_1.default.json());
+// root directory - form to make a link
 app.get("/", (req, res) => {
     res.render("form");
 });
+// Accept POST from form to make a link
 app.post("/makelink", (req, res) => {
     res.send("Received post request to makelink with information: " +
         JSON.stringify(req.body));
 });
+// specific for error
 app.get("/error", (req, res) => {
     res.send("oh no there has been an error");
 });
+// redirect
 app.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fullURL = yield (0, queries_1.getLinkFromShortURL)(req.params.id);
     if (fullURL !== undefined) {
@@ -45,6 +49,7 @@ app.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     res.send("no link matches that, maybe you would like to make one?");
 }));
+// Start server
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${port} 🚀`);
 });

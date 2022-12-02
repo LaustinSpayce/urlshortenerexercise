@@ -14,10 +14,12 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded());
 app.use(express.json());
 
+// root directory - form to make a link
 app.get("/", (req: Request, res: Response) => {
   res.render("form");
 });
 
+// Accept POST from form to make a link
 app.post("/makelink", (req: Request, res: Response) => {
   res.send(
     "Received post request to makelink with information: " +
@@ -25,10 +27,12 @@ app.post("/makelink", (req: Request, res: Response) => {
   );
 });
 
+// specific for error
 app.get("/error", (req: Request, res: Response) => {
   res.send("oh no there has been an error");
 });
 
+// redirect
 app.get("/:id", async (req: Request, res: Response) => {
   const fullURL = await getLinkFromShortURL(req.params.id);
 
@@ -43,6 +47,7 @@ app.get("/:id", async (req: Request, res: Response) => {
   res.send("no link matches that, maybe you would like to make one?");
 });
 
+// Start server
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port} 🚀`);
 });
