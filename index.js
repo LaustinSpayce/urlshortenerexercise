@@ -32,6 +32,10 @@ app.post("/makelink", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     // TODO: Check it's a valid URL.
     const inputURL = req.body.inputURL;
     const result = yield (0, queries_1.addLinkToDB)(inputURL);
+    if (result.code != undefined) {
+        res.render("error", result);
+        return;
+    }
     const protocol = req.protocol;
     const host = req.hostname;
     const port = process.env.PORT ? `:${process.env.PORT}` : ``;
@@ -41,7 +45,7 @@ app.post("/makelink", (req, res) => __awaiter(void 0, void 0, void 0, function* 
 }));
 // specific for error
 app.get("/error", (req, res) => {
-    res.send("oh no there has been an error");
+    res.render("error", { code: "Undefined error" });
 });
 // redirect
 app.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -54,7 +58,7 @@ app.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.redirect(url);
         return;
     }
-    res.send("no link matches that, maybe you would like to make one?");
+    res.render("notexist");
 }));
 // Start server
 app.listen(port, () => {

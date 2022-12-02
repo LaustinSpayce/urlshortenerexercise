@@ -14,7 +14,7 @@ export const getLinkFromShortURL = async (shortURL: String) => {
     return res.rows[0];
   } catch (err) {
     console.log(err);
-    console.log("whoops");
+    return err;
   } finally {
     client.release;
   }
@@ -28,7 +28,6 @@ export const addLinkToDB = async (url: String) => {
       `INSERT INTO "links" ("short", "fulllink") VALUES ($1, $2) RETURNING "short"`,
       [shortURL, url]
     );
-    console.log(res);
     return res.rows[0];
   } catch (err) {
     console.log(err);

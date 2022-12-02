@@ -23,7 +23,12 @@ app.get("/", (req: Request, res: Response) => {
 app.post("/makelink", async (req: Request, res: Response) => {
   // TODO: Check it's a valid URL.
   const inputURL = req.body.inputURL;
+
   const result = await addLinkToDB(inputURL);
+  if (result.code != undefined) {
+    res.render("error", result);
+    return;
+  }
 
   const protocol = req.protocol;
   const host = req.hostname;
@@ -36,13 +41,12 @@ app.post("/makelink", async (req: Request, res: Response) => {
 
 // specific for error
 app.get("/error", (req: Request, res: Response) => {
-  res.send("oh no there has been an error");
+  res.render("error", { code: "Undefined error" });
 });
 
 // redirect
 app.get("/:id", async (req: Request, res: Response) => {
   const fullURL = await getLinkFromShortURL(req.params.id);
-
   if (fullURL !== undefined) {
     const regexp = RegExp("(http|https)?://");
     const url = fullURL.fulllink.match(regexp)
@@ -51,7 +55,8 @@ app.get("/:id", async (req: Request, res: Response) => {
     res.redirect(url);
     return;
   }
-  res.send("no link matches that, maybe you would like to make one?");
+
+  res.render("notexist");
 });
 
 // Start server
