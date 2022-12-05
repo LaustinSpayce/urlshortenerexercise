@@ -9,6 +9,7 @@ services:
       - POSTGRES_USER=me
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=linkshortener
+      - PGDATA=/var/lib/pg_data
     command: -p 5433
     ports:
       - "5433:5433"
