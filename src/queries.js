@@ -6,9 +6,9 @@ const { Pool, Client } = pkg;
 const pool = new Pool();
 
 export const getLinkFromShortURL = async (shortURL) => {
-  const client = await pool.connect();
+  // const client = await pool.connect();
   try {
-    const res = await client.query(
+    const res = await pool.query(
       "SELECT fulllink FROM links WHERE short = $1",
       [shortURL]
     );
@@ -22,10 +22,10 @@ export const getLinkFromShortURL = async (shortURL) => {
 };
 
 export const addLinkToDB = async (url) => {
-  const client = await pool.connect();
+  // const client = await pool.connect();
   try {
     const shortURL = nanoid(Number(process.env.SHORTLENGTH));
-    const res = await client.query(
+    const res = await pool.query(
       `INSERT INTO "links" ("short", "fulllink") VALUES ($1, $2) RETURNING "short"`,
       [shortURL, url]
     );
