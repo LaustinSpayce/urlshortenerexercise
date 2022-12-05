@@ -6,7 +6,6 @@ const { Pool, Client } = pkg;
 const pool = new Pool();
 
 export const getLinkFromShortURL = async (shortURL) => {
-  // const client = await pool.connect();
   try {
     const res = await pool.query(
       "SELECT fulllink FROM links WHERE short = $1",
@@ -16,13 +15,10 @@ export const getLinkFromShortURL = async (shortURL) => {
   } catch (err) {
     console.log(err);
     return err;
-  } finally {
-    client.release();
   }
 };
 
 export const addLinkToDB = async (url) => {
-  // const client = await pool.connect();
   try {
     const shortURL = nanoid(Number(process.env.SHORTLENGTH));
     const res = await pool.query(
@@ -33,7 +29,5 @@ export const addLinkToDB = async (url) => {
   } catch (err) {
     console.log(err);
     return err;
-  } finally {
-    client.release();
   }
 };
