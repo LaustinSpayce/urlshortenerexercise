@@ -1,12 +1,15 @@
 # Link shortener exercise
 
-This is an exercise in making a simple link shortener.
+This is a simple exercise, creating a link shortener.
 
-Run from node and all dependencies.
+The requirements are that you can input a URL, and receive a shortened one back.
 
 If you have docker:
+
 `bash launch_app.sh`
 
-It'll shorten any text, not validating links exist or are valid.
+And it will run a script to create a shortened URL for you.
 
-There's no check for duplication of the shortened URL because it's very very unlikely there'll be any overlap.
+It'll shorten any text, not validating that a link already exists or is valid.
+
+There's no check for duplication of the shortened URL because it's very very unlikely there would be any overlap.
