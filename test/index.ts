@@ -1,5 +1,5 @@
 import chai, { expect } from "chai";
-import app from "../index";
+import app from "../index.js";
 import chaihttp from "chai-http";
 import { response } from "express";
 
