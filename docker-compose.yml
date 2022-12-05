@@ -17,7 +17,6 @@ services:
       # copy the sql script to create tables
       - ./db/seed.sql:/docker-entrypoint-initdb.d/create_tables.sql
   express:
-    image: linkshortener
     restart: always
     build:
       context: .

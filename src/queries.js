@@ -17,7 +17,7 @@ export const getLinkFromShortURL = async (shortURL) => {
     console.log(err);
     return err;
   } finally {
-    client.release;
+    client.release();
   }
 };
 
@@ -34,6 +34,6 @@ export const addLinkToDB = async (url) => {
     console.log(err);
     return err;
   } finally {
-    client.release;
+    client.release();
   }
 };
