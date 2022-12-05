@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres:
-    container_name: db
+    container_name: linkshortenerdb
     image: postgres
     restart: always
     environment:
