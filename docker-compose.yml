@@ -2,16 +2,34 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:latest
+    container_name: db
+    image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=user
+      - POSTGRES_USER=me
       - POSTGRES_PASSWORD=password
-    volumes:
-      - postgres:/var/lib/postgresql/data
+      - POSTGRES_DB=linkshortener
     command: -p 5433
     ports:
       - "5433:5433"
-
-volumes:
-  postgres:
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      # copy the sql script to create tables
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/create_tables.sql
+  express:
+    image: linkshortener
+    restart: always
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      - PORT=8000
+      - PGUSER=me
+      - PGHOST=db
+      - PGPASSWORD=password
+      - PGDATABASE=linkshortener
+      - PGPORT=5433
+      - SHORTLENGTH=8
+    ports:
+      - "8000:8000"
