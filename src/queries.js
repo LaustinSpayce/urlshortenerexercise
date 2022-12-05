@@ -1,8 +1,7 @@
 import pkg from "pg";
 import { nanoid } from "nanoid";
-import { stringify } from "querystring";
 
-const { Pool, Client } = pkg;
+const { Pool } = pkg;
 const pool = new Pool();
 
 export const getLinkFromShortURL = async (shortURL) => {
