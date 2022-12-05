@@ -25,7 +25,7 @@ services:
     environment:
       - PORT=8000
       - PGUSER=me
-      - PGHOST=db
+      - PGHOST=linkshortenerdb
       - PGPASSWORD=password
       - PGDATABASE=linkshortener
       - PGPORT=5433

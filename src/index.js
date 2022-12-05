@@ -66,7 +66,7 @@ app.get("/:id", async (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${port} 🚀`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${port} 🚀`);
 });
 
 export default app;
