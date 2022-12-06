@@ -4,11 +4,11 @@ This is a simple exercise, creating a link shortener.
 
 The requirements are that you can input a URL, and receive a shortened one back.
 
-If you have docker:
+If you have docker, run the script:
 
 `bash launch_app.sh`
 
-And it will run a script to create a shortened URL for you.
+And docker containers with compose will be launched together.
 
 You can then access the application at http://localhost:8000/
 
