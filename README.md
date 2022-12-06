@@ -10,6 +10,8 @@ If you have docker:
 
 And it will run a script to create a shortened URL for you.
 
+You can then access the application at http://localhost:8000/
+
 It'll shorten any text, not validating that a link already exists or is valid.
 
 There's no check for duplication of the shortened URL because it's very very unlikely there would be any overlap.
